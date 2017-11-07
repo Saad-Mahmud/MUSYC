@@ -1,0 +1,72 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.inc.musyc.musyc.ActivitiesAndFragments.SongsFragment"
+    android:background="@color/Background_Color"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/Cards_Color">
+
+        <ImageView
+            android:id="@+id/songsfragment_img2"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/White_Color"
+            android:src="@drawable/defaultmusic" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Liked Songs"
+            android:textColor="@color/White_Color"
+            android:textSize="25sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:id="@+id/songsfragment_title2"/>
+
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:orientation="vertical"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp"
+        android:background="@color/Cards_Color">
+
+        <ImageView
+            android:id="@+id/songsfragment_img3"
+            android:layout_width="match_parent"
+            android:layout_height="160dp"
+            android:layout_marginBottom="16dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:layout_marginTop="16dp"
+            android:background="@color/White_Color"
+            android:src="@mipmap/ic_launcher_round" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="MUSYC Recomendation"
+            android:textColor="@color/White_Color"
+            android:textSize="25sp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="4dp"
+            android:id="@+id/songsfragment_title3"/>
+
+    </LinearLayout>
+
+</LinearLayout>

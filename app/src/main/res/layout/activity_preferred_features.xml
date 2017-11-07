@@ -1,0 +1,194 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/bg3"
+    tools:context="com.example.monoshizjishnu.dbtester.PreferredFeatures">
+
+
+    <ImageButton
+        android:layout_width="25sp"
+        android:layout_height="23sp"
+        android:src="@drawable/back"
+        android:scaleType="fitCenter"
+        android:background="@drawable/border"
+        android:id="@+id/back"
+        />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="  Settings"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_toRightOf="@+id/back"
+        />
+
+    <Button
+        android:id="@+id/friends"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Friends"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_above="@+id/app"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:textColorHighlight="#C8BFE7"
+        />
+
+    <Button
+        android:id="@+id/app"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="App"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_above="@+id/settings"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:textColorHighlight="#C8BFE7"
+        />
+
+    <Button
+        android:id="@+id/settings"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Settings"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:layout_above="@+id/aboutus"
+        android:textColorHighlight="#C8BFE7"
+        />
+
+    <Button
+        android:id="@+id/aboutus"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="About Us"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:textAlignment="center"
+        android:layout_centerInParent="true"
+        android:textColorHighlight="#C8BFE7"
+        />
+
+    <Button
+        android:id="@+id/logout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@android:color/transparent"
+        android:text="Log Out"
+        android:textSize="20sp"
+        android:textColor="@android:color/white"
+        android:layout_below="@+id/aboutus"
+        android:textAlignment="center"
+        android:layout_centerHorizontal="true"
+        android:textColorHighlight="#C8BFE7"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:focusable="false"
+        android:layout_height="60dp"
+        android:layout_alignParentBottom="true"
+        android:background="#111111"
+        />
+
+    <TextView
+        android:id="@+id/blankablank"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"/>
+
+    <ImageButton
+        android:id="@+id/prev"
+        android:focusable="false"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/prev"
+        android:scaleType="fitCenter"
+        android:background="@drawable/border"
+        android:layout_above="@+id/blankablank"
+        />
+
+
+    <ImageButton
+        android:id="@+id/play"
+        android:focusable="false"
+        android:layout_width="55dp"
+        android:layout_height="55dp"
+        android:src="@drawable/play"
+        android:scaleType="fitCenter"
+        android:background="@drawable/border"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/prev"
+        />
+
+    <ImageButton
+        android:id="@+id/next"
+        android:focusable="false"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        android:src="@drawable/next"
+        android:scaleType="fitCenter"
+        android:background="@drawable/border"
+        android:layout_above="@+id/blankablank"
+        android:layout_toRightOf="@+id/play"
+        />
+
+    <TextView
+        android:id="@+id/hudaiblank"
+        android:focusable="false"
+        android:layout_width="20dp"
+        android:layout_height="20dp"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/next"
+        />
+    <TextView
+        android:id="@+id/blankfortext"
+        android:layout_width="20dp"
+        android:focusable="false"
+        android:layout_height="17dp"
+        android:layout_above="@+id/blankablank"
+        android:layout_toRightOf="@+id/next"
+        />
+
+
+    <TextView
+        android:id="@+id/songname"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/playlist"
+        android:layout_above="@+id/blankfortext"
+        android:layout_toRightOf="@+id/hudaiblank"
+        android:text="Song Name"
+        android:textColor="@android:color/white"
+        android:textSize="20dp"
+        />
+
+    <TextView
+        android:id="@+id/artstname"
+        android:focusable="false"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/songname"
+        android:layout_toRightOf="@+id/hudaiblank"
+        android:text="Artist Name"
+        android:textColor="@android:color/white"
+        android:textSize="15dp"
+        />
+
+</RelativeLayout>
