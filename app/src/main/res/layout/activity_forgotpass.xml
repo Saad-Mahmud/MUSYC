@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.inc.musyc.musyc.ActivitiesAndFragments.ForgotpassActivity"
+    tools:context="com.inc.musyc.musyc.ActivitiesAndFragments.loginsignup.ForgotpassActivity"
     android:background="@color/Background_Color">
 
 

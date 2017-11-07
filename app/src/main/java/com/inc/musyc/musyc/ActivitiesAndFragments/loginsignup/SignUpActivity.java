@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.loginsignup;
 
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -23,7 +23,6 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.R;
 
 import java.util.HashMap;

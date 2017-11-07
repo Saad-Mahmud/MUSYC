@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.loginsignup;
 
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -58,6 +58,7 @@ public class LogInActivity extends AppCompatActivity {
         mDatabase = FirebaseDatabase.getInstance();
         mProgressbar=(ProgressBar) findViewById(R.id.login_pb_progress);
         mResend=(Button)findViewById(R.id.login_bt_resend);
+        mResend.setVisibility(View.GONE);
         initUI();
 
     }
@@ -71,13 +72,13 @@ public class LogInActivity extends AppCompatActivity {
 
         mTitle.setTypeface(mTitleFont);
 
-        mResend.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent varification = new Intent(LogInActivity.this, VerificationActivity.class);
-                startActivity(varification);
-            }
-        });
+//        mResend.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                Intent varification = new Intent(LogInActivity.this, VerificationActivity.class);
+//                startActivity(varification);
+//            }
+//        });
 
         mLogin.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -180,10 +181,9 @@ public class LogInActivity extends AppCompatActivity {
                     });
 
                 }else{
-
                     mProgressbar.setVisibility(View.GONE);
                     getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-                    Toast.makeText(LogInActivity.this,"Wrong Email or Password!",Toast.LENGTH_LONG).show();
+                    Toast.makeText(LogInActivity.this,task.getException().toString(),Toast.LENGTH_LONG).show();
                 }
             }
 

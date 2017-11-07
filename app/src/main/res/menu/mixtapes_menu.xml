@@ -5,11 +5,5 @@
     <item
         android:id="@+id/mixtapesedit_addfrommobile"
         android:title="Add From Drive" />
-    <item
-        android:id="@+id/mixtapesedit_addfromonline"
-        android:title="Add From Online" />
-    <item
-        android:id="@+id/mixtapesedit_delete"
-        android:title="Delete" />
 
 </menu>

@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,6 +19,8 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.inc.musyc.musyc.ActivitiesAndFragments.MainSettings.MainSettingsActivity;
+import com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub.SocialMainActivity;
+import com.inc.musyc.musyc.ActivitiesAndFragments.loginsignup.StartActivity;
 import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.OfflineMusicPlayer.PlaylistActivity;
 import com.inc.musyc.musyc.R;

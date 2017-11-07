@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.inc.musyc.musyc.ActivitiesAndFragments.StartActivity"
+    tools:context="com.inc.musyc.musyc.ActivitiesAndFragments.loginsignup.StartActivity"
     android:background="@color/Background_Color">
 
     <android.support.constraint.Guideline

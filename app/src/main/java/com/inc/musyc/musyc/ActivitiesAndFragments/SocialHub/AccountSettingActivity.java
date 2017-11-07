@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -54,6 +54,7 @@ public class AccountSettingActivity extends AppCompatActivity {
         mName=(TextView)findViewById(R.id.acsat_name);
         mIntro=(TextView)findViewById(R.id.acsat_intro);
         mDes=(TextView)findViewById(R.id.acsat_description);
+        mDes.setVisibility(View.GONE);
         mChangeIntro =(Button)findViewById(R.id.acsat_bt_intro);
         mChangeImage =(Button)findViewById(R.id.acsat_bt_image);
         mStorage=FirebaseStorage.getInstance();

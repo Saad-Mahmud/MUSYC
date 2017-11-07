@@ -11,7 +11,7 @@ import android.widget.TextView;
 
 
 import com.inc.musyc.musyc.JsontoJava.Notifications;
-import com.inc.musyc.musyc.ActivitiesAndFragments.ProfileActivity;
+import com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub.ProfileActivity;
 import com.inc.musyc.musyc.R;
 
 import java.util.List;

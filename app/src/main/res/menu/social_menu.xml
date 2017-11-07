@@ -7,9 +7,6 @@
         android:id="@+id/socialmenu_creatpost"
         android:title="Create Post" />
     <item
-        android:id="@+id/socialmenu_myposts"
-        android:title="My Posts" />
-    <item
         android:id="@+id/socialmenu_mymixtapes"
         android:title="My Mixtapes" />
     <item

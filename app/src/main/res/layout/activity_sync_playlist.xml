@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.inc.musyc.musyc.ActivitiesAndFragments.SyncPlaylistActivity"
+    tools:context="com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream.SyncPlaylistActivity"
     android:background="@color/Background_Color"
     android:orientation="vertical">
 
@@ -64,13 +64,7 @@
                 android:background="@color/App_Bar_Color"
                 android:layout_weight="1"
                 android:layout_width="0dp"/>
-            <ImageButton
-                android:id="@+id/syncplaylist_bt_play"
-                style="@android:style/MediaButton.Play"
-                android:background="@color/App_Bar_Color"
-                android:layout_weight="1"
-                android:layout_width="0dp"
-                />
+
             <ImageButton
                 android:id="@+id/syncplaylist_bt_next"
                 style="@android:style/MediaButton.Next"

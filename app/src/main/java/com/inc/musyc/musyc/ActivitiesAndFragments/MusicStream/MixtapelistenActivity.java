@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -7,17 +7,20 @@ import android.os.Handler;
 import android.provider.Settings;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.method.ScrollingMovementMethod;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
-
 
 import com.cleveroad.audiowidget.AudioWidget;
+import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.android.exoplayer2.DefaultLoadControl;
 import com.google.android.exoplayer2.ExoPlaybackException;
 import com.google.android.exoplayer2.ExoPlayer;
@@ -35,29 +38,22 @@ import com.google.android.exoplayer2.trackselection.TrackSelectionArray;
 import com.google.android.exoplayer2.trackselection.TrackSelector;
 import com.google.android.exoplayer2.upstream.DefaultDataSourceFactory;
 import com.google.android.exoplayer2.util.Util;
-import com.google.firebase.database.DataSnapshot;
-import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
-import com.google.firebase.database.ValueEventListener;
-import com.inc.musyc.musyc.Global.Infostatic;
+import com.inc.musyc.musyc.JsontoJava.Mixtapesongs;
 import com.inc.musyc.musyc.R;
-import com.inc.musyc.musyc.Utils.DumbActivity;
+import com.inc.musyc.musyc.Utils.*;
 import com.squareup.picasso.Callback;
 import com.squareup.picasso.NetworkPolicy;
 import com.squareup.picasso.Picasso;
 
 import java.util.Formatter;
-import java.util.HashMap;
 import java.util.Locale;
-import java.util.Map;
 
-import static java.lang.Integer.parseInt;
-
-
-public class SinglePostViewActivity extends AppCompatActivity {
+public class MixtapelistenActivity extends AppCompatActivity {
 
 
+    //exoplayer//////////////////////////////////////////
     private SimpleExoPlayer exoPlayer;
     private ExoPlayer.EventListener eventListener;
     private SeekBar seekPlayerProgress;
@@ -67,157 +63,60 @@ public class SinglePostViewActivity extends AppCompatActivity {
     private boolean isPlaying = false;
     private AudioWidget audioWidget;
     private static final int OVERLAY_PERMISSION_REQ_CODE=5;
-    private static final String TAG = "Single Postview";
-    private String StreamURL ="";
-    private DatabaseReference mData;
-    private String mTitle,mArtist,mLyrics,mImage;
+    private static final String TAG = "PlayListActivity";
+    private String mSongulrs[];
+    private int mTotalsong=1;
+    private String mTitle,mMixtapeid,mImage;
     private ImageView mImageView;
-    private TextView mTitleView,mArtistView,mLyricsView,mLikesview,mNameview;
     private ImageButton mLikebt;
-    private int mLikes;
-    private boolean isLiked=false;
-    private String id,postid;
+    private Toolbar mtoolbar;
+    private RecyclerView mMixtapesongsList;
+    private DatabaseReference mMixtapesongsDatabase;
+    private int mCurrentsong;
+    private boolean nextClicked=true;
+    private int mStateended=0;
+    private FirebaseRecyclerAdapter<Mixtapesongs,MixtapeSongsViewHolder> feedRecyclerViewAdapter;
+    private ImageButton mNextbt,mPrevbt;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_mixtapelisten);
 
-        setContentView(R.layout.activity_single_post_view);
-        mLyricsView=(TextView)findViewById(R.id.singlepostview_lyricsview);
-        mLyricsView=(TextView)findViewById(R.id.singlepostview_lyricsview);
-        mLyricsView.setMovementMethod(new ScrollingMovementMethod());
-        mTitleView=(TextView)findViewById(R.id.singlepostview_title);
-        mArtistView=(TextView)findViewById(R.id.singlepostview_artist);
-        mImageView=(ImageView)findViewById(R.id.singlepostview_imageview);
-        mLikebt=(ImageButton)findViewById(R.id.singlepostview_bt_like);
-
-        //init data////////////////////////////////////////////////////
+        //Init
+        mImageView=(ImageView)findViewById(R.id.mixtapelisten_imageview);
         mTitle=getIntent().getStringExtra("title");
-        mArtist=getIntent().getStringExtra("artist");
-        mLyrics=getIntent().getStringExtra("post");
         mImage=getIntent().getStringExtra("image");
-        StreamURL =getIntent().getStringExtra("music");
-        id=getIntent().getStringExtra("id");
-        postid=getIntent().getStringExtra("postid");
-        mLikesview=(TextView)findViewById(R.id.singlepostview_likes);
-        mLikes=0;
-        FirebaseDatabase.getInstance().getReference().child("posts").child(id).child(postid).child("likes").addListenerForSingleValueEvent(new ValueEventListener() {
-            @Override
-            public void onDataChange(DataSnapshot dataSnapshot) {
-                if(!dataSnapshot.exists())return;
-                if(dataSnapshot.child(Infostatic.uid).exists()) {
-                    isLiked = true;
-                    mLikebt.setImageResource(R.drawable.ic_action_name2);
-                    Toast.makeText(SinglePostViewActivity.this,"YO",Toast.LENGTH_SHORT).show();
-                }
-                mLikes=(int)dataSnapshot.getChildrenCount();
-                mLikesview.setText(mLikes+" Likes");
-            }
+        mMixtapeid=getIntent().getStringExtra("id");
+        mCurrentsong=0;
+        mMixtapesongsList = (RecyclerView)findViewById(R.id.mixtapelisten_list);
+        mMixtapesongsDatabase = FirebaseDatabase.getInstance().getReference().child("mixtapes").child(getIntent().getStringExtra("uid").toString()).child(mMixtapeid).child("songs");
+        mMixtapesongsDatabase.keepSynced(true);
+        mSongulrs=new String[1111];
 
-            @Override
-            public void onCancelled(DatabaseError databaseError) {
+        //UI build
+        mMixtapesongsList.setHasFixedSize(true);
+        mMixtapesongsList.setLayoutManager(new LinearLayoutManager(MixtapelistenActivity.this));
+        mtoolbar=(Toolbar)findViewById(R.id.mixtapelisten_toolbar);
+        setSupportActionBar(mtoolbar);
+        getSupportActionBar().setTitle("  "+mTitle);
+        getSupportActionBar().setLogo(R.mipmap.ic_launcher_round);
 
-            }
-        });
-
-        //Init UI////////////////////////////////////////////////////////////////
-
-        //init like bt
-        initLikebt();
-        //set texts
-        mTitleView.setText("Title: "+mTitle);
-        mArtistView.setText("Artis: "+mArtist);
-        mLikesview.setText(mLikes+" Likes");
-        mLyricsView.setText(mLyrics);
-        //loads image
+        //Load Image////////////////////////////////////////
         loadImage();
-        //Widget Controll
-        widgetInit();
-        //init exoplayer and loads songs
-        prepareExoPlayerFromURL(Uri.parse(StreamURL));
+
+        //initWidget
+        initWidget();
+
     }
 
-    private void initLikebt()
-    {
-        mLikebt.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(SinglePostViewActivity.this,"Like",Toast.LENGTH_SHORT).show();
-                if(isLiked==false)
-                {
-                    HashMap<String, String> notificationData = new HashMap<>();
-                    Long time=System.currentTimeMillis();
-                    String tt=(new java.util.Date(time)).toString();
-                    notificationData.put("fromid", Infostatic.uid);
-                    notificationData.put("title", "New Likes!");
-                    notificationData.put("body", Infostatic.name+" Likes your post!\n "+mTitle+".");
-                    notificationData.put("type", "likes");
-                    notificationData.put("postid", postid);
-                    notificationData.put("time", tt);
-                    Map friendMap = new HashMap();
-
-                    HashMap<String, String> likedsong = new HashMap<>();
-                    likedsong.put("title", mTitle);
-                    likedsong.put("music", StreamURL);
-                    likedsong.put("cnt", "0");
-
-                    DatabaseReference newNotificationref = FirebaseDatabase.getInstance().getReference().child("notifications").child(id).push();
-                    String newNotificationId = newNotificationref.getKey();
-                    friendMap.put("posts/" + id + "/" +postid+"/likes"+"/"+ Infostatic.uid, "true");
-                    friendMap.put("notifications/" + id + "/" + newNotificationId, notificationData);
-                    friendMap.put("mixtapes/" + Infostatic.uid + "/liked_songs/songs/" + postid, likedsong);
-
-                    FirebaseDatabase.getInstance().getReference().updateChildren(friendMap, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-
-
-                            if(databaseError == null){
-                                isLiked=true;
-                                mLikes++;
-                                mLikesview.setText(mLikes+" Likes");
-                                mLikebt.setImageResource(R.drawable.ic_action_name2);
-
-                            } else {
-                                String error = databaseError.getMessage();
-                                Toast.makeText(SinglePostViewActivity.this, error, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-                }else
-                {
-                    Toast.makeText(SinglePostViewActivity.this,"Like",Toast.LENGTH_SHORT).show();
-                    Map friendMap = new HashMap();
-                    friendMap.put("posts/" + id + "/" + postid + "/likes" + "/" + Infostatic.uid, null);
-                    friendMap.put("mixtapes/" + Infostatic.uid + "/liked_songs/songs/" + postid, null);
-                    FirebaseDatabase.getInstance().getReference().updateChildren(friendMap, new DatabaseReference.CompletionListener() {
-                        @Override
-                        public void onComplete(DatabaseError databaseError, DatabaseReference databaseReference) {
-
-
-                            if (databaseError == null) {
-                                isLiked = false;
-                                mLikes--;
-                                mLikesview.setText(mLikes + " Likes");
-                                mLikebt.setImageResource(R.drawable.ic_action_name);
-
-                            } else {
-                                String error = databaseError.getMessage();
-                                Toast.makeText(SinglePostViewActivity.this, error, Toast.LENGTH_SHORT).show();
-                            }
-                        }
-                    });
-
-                }
-
-            }
-        });
-    }
     private void loadImage()
     {
+        //loads image from url with placeholder image and network persistence
         if(mImage!=null && mImage.length()>0 && !mImage.equals("default"))
         {
-            Picasso.with(this).load(mImage).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.default_avatar).into(mImageView, new Callback() {
+            Picasso.with(this).load(mImage).networkPolicy(NetworkPolicy.OFFLINE).placeholder(R.drawable.defaultmusic).into(mImageView, new Callback() {
                 @Override
                 public void onSuccess() {
 
@@ -225,13 +124,15 @@ public class SinglePostViewActivity extends AppCompatActivity {
 
                 @Override
                 public void onError() {
-                    Picasso.with(SinglePostViewActivity.this).load(mImage).placeholder(R.drawable.default_avatar).into(mImageView);
+                    Picasso.with(MixtapelistenActivity.this).load(mImage).placeholder(R.drawable.defaultmusic).into(mImageView);
                 }
             });
         }
     }
-    private void widgetInit()
+
+    private void initWidget()
     {
+        //Audio Widget permisson required /////////////////////////////
         audioWidget = new AudioWidget.Builder(getApplicationContext()).build();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
@@ -241,12 +142,14 @@ public class SinglePostViewActivity extends AppCompatActivity {
         {
             audioWidget.show(100,100);
         }
+
+        //Audio Widget Cntroll////////////////////
         audioWidget.controller().onControlsClickListener(new AudioWidget.OnControlsClickListener() {
             @Override
             public boolean onPlaylistClicked() {
                 // playlist icon clicked
                 // return false to collapse widget, true to stay in expanded state
-                Intent socialmain = new Intent(SinglePostViewActivity.this, DumbActivity.class);
+                Intent socialmain = new Intent(MixtapelistenActivity.this, DumbActivity.class);
                 startActivity(socialmain);
                 return false;
             }
@@ -254,7 +157,7 @@ public class SinglePostViewActivity extends AppCompatActivity {
             @Override
             public void onPreviousClicked() {
                 // previous track button clicked
-                //nextPlayer();
+                prevPlayer();
             }
 
             @Override
@@ -267,7 +170,7 @@ public class SinglePostViewActivity extends AppCompatActivity {
             @Override
             public void onNextClicked() {
                 // next track button clicked
-                //nextPlayer();
+                nextPlayer(1);
 
             }
 
@@ -296,6 +199,8 @@ public class SinglePostViewActivity extends AppCompatActivity {
                 // next track button long clicked
             }
 
+
+
             @Override
             public void onAlbumLongClicked() {
                 // album cover long clicked
@@ -303,27 +208,28 @@ public class SinglePostViewActivity extends AppCompatActivity {
         });
     }
 
-    //Stream data/////////////////////////
+    //data source init
     private void prepareExoPlayerFromURL(Uri uri){
 
         TrackSelector trackSelector = new DefaultTrackSelector();
 
         LoadControl loadControl = new DefaultLoadControl();
 
+
         exoPlayer = ExoPlayerFactory.newSimpleInstance(this, trackSelector, loadControl);
 
         DefaultDataSourceFactory dataSourceFactory = new DefaultDataSourceFactory(this, Util.getUserAgent(this, "exoplayer2example"), null);
         ExtractorsFactory extractorsFactory = new DefaultExtractorsFactory();
         MediaSource audioSource = new ExtractorMediaSource(uri, dataSourceFactory, extractorsFactory, null, null);
-
-        exoplayerControllerInit();
+        initExoplayerController();
         exoPlayer.addListener(eventListener);
 
         exoPlayer.prepare(audioSource);
         initMediaControls();
     }
 
-    private void exoplayerControllerInit()
+    //init exoplayer controller
+    private void initExoplayerController()
     {
         eventListener = new ExoPlayer.EventListener() {
             @Override
@@ -351,8 +257,17 @@ public class SinglePostViewActivity extends AppCompatActivity {
                         //Stop playback and return to start position
                         setPlayPause(false);
                         exoPlayer.seekTo(0);
+                        setZero();
+                        if(mStateended==1)
+                        {
+                            nextPlayer(1);
+                            mStateended++;
+                            if(mStateended>10)mStateended=2;
+                        }
+
                         break;
                     case ExoPlayer.STATE_READY:
+                        mStateended=1;
                         Log.i(TAG,"ExoPlayer ready! pos: "+exoPlayer.getCurrentPosition()
                                 +" max: "+stringForTime((int)exoPlayer.getDuration()));
 
@@ -377,41 +292,84 @@ public class SinglePostViewActivity extends AppCompatActivity {
                 Log.i(TAG,"onPositionDiscontinuity");
             }
         };
-
     }
-    //Media Controll init
+
+    //Media Button Controll//////////////////////////////////////////////////////////////////////////
     private void initMediaControls() {
         initPlayButton();
         initSeekBar();
         initTxtTime();
     }
 
+    //init player button
     private void initPlayButton() {
-        btnPlay = (ImageButton) findViewById(R.id.singlepostview_bt_play);
+        btnPlay = (ImageButton) findViewById(R.id.mixtapelisten_bt_play);
         btnPlay.requestFocus();
         btnPlay.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                 setPlayPause(!isPlaying);
+                setPlayPause(!isPlaying);
+            }
+        });
+        mNextbt=(ImageButton)findViewById(R.id.mixtapelisten_bt_next);
+        mPrevbt=(ImageButton)findViewById(R.id.mixtapelisten_bt_prev);
+        mPrevbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                prevPlayer();
+            }
+        });
+        mNextbt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                nextPlayer(1);
             }
         });
     }
 
-
-    private void nextPlayer()
+    //next song
+    private void nextPlayer(int i)
     {
-        if(isPlaying) setPlayPause(!isPlaying);
+        if(exoPlayer==null)return ;
+       //Toast.makeText(MixtapelistenActivity.this,"Hello Done",Toast.LENGTH_SHORT).show();
+        MixtapeSongsViewHolder a =(MixtapeSongsViewHolder) mMixtapesongsList.findViewHolderForAdapterPosition(mCurrentsong);
+        a.unsetColor();
+        setPlayPause(false);
         exoPlayer.stop();
-        prepareExoPlayerFromURL(Uri.parse(StreamURL));
+        setZero();
+        mTotalsong=feedRecyclerViewAdapter.getItemCount();
+        mCurrentsong=(mCurrentsong+i)%mTotalsong;
+        a =(MixtapeSongsViewHolder) mMixtapesongsList.findViewHolderForAdapterPosition(mCurrentsong);
+        a.setColor();
+        prepareExoPlayerFromURL(Uri.parse(mSongulrs[mCurrentsong]));
+        nextClicked=true;
     }
 
-    private void setPlayPause(boolean play){
+    //prev song
+    private void prevPlayer()
+    {
+        if(exoPlayer==null)return ;
+        MixtapeSongsViewHolder a =(MixtapeSongsViewHolder) mMixtapesongsList.findViewHolderForAdapterPosition(mCurrentsong);
+        a.unsetColor();
+        setPlayPause(false);
+        exoPlayer.stop();
+        setZero();
+        mTotalsong=feedRecyclerViewAdapter.getItemCount();
+        mCurrentsong=(mCurrentsong-1+mTotalsong)%mTotalsong;
+        a =(MixtapeSongsViewHolder) mMixtapesongsList.findViewHolderForAdapterPosition(mCurrentsong);
+        a.setColor();
+        prepareExoPlayerFromURL(Uri.parse(mSongulrs[mCurrentsong]));
+        nextClicked=true;
+    }
 
-       isPlaying = play;
+    //play pause action
+    private void setPlayPause(boolean play){
+        if(exoPlayer==null)return;
+        isPlaying = play;
 
         exoPlayer.setPlayWhenReady(play);
         if(!isPlaying){
-            Toast.makeText(SinglePostViewActivity.this,"Hq",Toast.LENGTH_LONG).show();
+           // Toast.makeText(MixtapelistenActivity.this,"Hq",Toast.LENGTH_LONG).show();
             audioWidget.controller().pause();
             btnPlay.setImageResource(android.R.drawable.ic_media_play);
         }else{
@@ -421,11 +379,15 @@ public class SinglePostViewActivity extends AppCompatActivity {
         }
     }
 
-    //Seekbar init/////////////////////////////////////////////////
+
+    //Music Player SeekBar//////////////////////////////////////////////////////////////////////////
+
+    //init textview
     private void initTxtTime() {
-        txtCurrentTime = (TextView) findViewById(R.id.singlepostview_timecurrent);
-        txtEndTime = (TextView) findViewById(R.id.singlepostview_endtime);
+        txtCurrentTime = (TextView) findViewById(R.id.mixtapelisten_timecurrent);
+        txtEndTime = (TextView) findViewById(R.id.mixtapelisten_endtime);
     }
+
 
     private String stringForTime(int timeMs) {
         StringBuilder mFormatBuilder;
@@ -446,8 +408,18 @@ public class SinglePostViewActivity extends AppCompatActivity {
         }
     }
 
+    //set seekbar progress
     private void setProgress() {
-        if(!isPlaying)return;
+        if(exoPlayer==null)return ;
+        if(!isPlaying)
+        {
+            if(nextClicked)
+            {
+                setPlayPause(true);
+                nextClicked=false;
+            }
+            return;
+        }
         seekPlayerProgress.setProgress(0);
         seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
         txtCurrentTime.setText(stringForTime((int)exoPlayer.getCurrentPosition()));
@@ -471,8 +443,16 @@ public class SinglePostViewActivity extends AppCompatActivity {
         });
     }
 
+    //set time to zero
+    public void setZero()
+    {
+        txtCurrentTime.setText("00:00");
+        txtEndTime.setText("00:00");
+    }
+
+    //init seekbar
     private void initSeekBar() {
-        seekPlayerProgress = (SeekBar) findViewById(R.id.singlepostview_mp);
+        seekPlayerProgress = (SeekBar) findViewById(R.id.mixtapelisten_mp);
         seekPlayerProgress.requestFocus();
 
         seekPlayerProgress.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
@@ -500,12 +480,14 @@ public class SinglePostViewActivity extends AppCompatActivity {
 
         seekPlayerProgress.setMax(0);
         seekPlayerProgress.setMax((int) exoPlayer.getDuration()/1000);
-
     }
 
-    //Android lifecycle/////////////////
+
+    //Android Lifecycle/////////////////////////////////////////////////////////////////////////
     @Override
     protected void onResume() {
+        super.onResume();
+        if(audioWidget==null)return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
             startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
@@ -515,11 +497,11 @@ public class SinglePostViewActivity extends AppCompatActivity {
             audioWidget.show(100,100);
         }
 
-        super.onResume();
     }
 
     @Override
     protected void onStop() {
+        if(exoPlayer!=null)exoPlayer.stop();
         super.onStop();
     }
 
@@ -534,16 +516,76 @@ public class SinglePostViewActivity extends AppCompatActivity {
             audioWidget.show(100,100);
         }
         super.onStart();
+        feedRecyclerViewAdapter = new FirebaseRecyclerAdapter<Mixtapesongs,MixtapeSongsViewHolder>(
+
+                Mixtapesongs.class,
+                R.layout.mixtapesongs_layout,
+                MixtapeSongsViewHolder.class,
+                mMixtapesongsDatabase
+
+
+        ) {
+            @Override
+            protected void populateViewHolder(final MixtapeSongsViewHolder viewHolder, final Mixtapesongs model, final int position) {
+                viewHolder.setTitle((position+1)+". "+model.getTitle());
+                mSongulrs[position]=model.getMusic();
+                if(position==mCurrentsong)
+                {
+                    viewHolder.setColor();
+                    prepareExoPlayerFromURL(Uri.parse(mSongulrs[0]));
+                }
+                viewHolder.mView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        MixtapeSongsViewHolder a =(MixtapeSongsViewHolder) mMixtapesongsList.findViewHolderForAdapterPosition(mCurrentsong);
+                        a.unsetColor();
+                        setPlayPause(false);
+                        exoPlayer.stop();
+                        setZero();
+                        mCurrentsong=position;
+                        viewHolder.setColor();
+
+                        prepareExoPlayerFromURL(Uri.parse(model.getMusic()));
+                        nextClicked=true;
+                    }
+                });
+            }
+
+
+        };
+        mTotalsong=feedRecyclerViewAdapter.getItemCount();
+        mMixtapesongsList.setAdapter(feedRecyclerViewAdapter);
     }
 
     @Override
     protected void onDestroy() {
         if(exoPlayer!=null)exoPlayer.stop();
-        audioWidget.hide();
+        if(audioWidget!=null)audioWidget.hide();
         super.onDestroy();
     }
 
-    //Return values
+
+    //Android Menu Activity///////////////////////////////////////////////////////////////////////////////
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        super.onCreateOptionsMenu(menu);
+        getMenuInflater().inflate(R.menu.mixtapes_menu,menu);
+        return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+
+        if(item.getItemId()==R.id.mixtapesedit_addfrommobile)
+        {
+            Intent AddSongOffLine=new Intent(MixtapelistenActivity.this,AddSongToMixtapeActivity.class);
+            AddSongOffLine.putExtra("mMixtapeid",mMixtapeid);
+            startActivity(AddSongOffLine);
+        }
+        return true;
+    }
+
+    //Android on return result//////////////////////////////////////////////////////////////////////////
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -554,4 +596,5 @@ public class SinglePostViewActivity extends AppCompatActivity {
             }
         }
     }
+
 }

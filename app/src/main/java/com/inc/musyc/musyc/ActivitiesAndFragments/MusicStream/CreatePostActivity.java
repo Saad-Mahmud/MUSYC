@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -97,9 +97,21 @@ public class CreatePostActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                if(mMusicuri==null || mMusicuri==null)
+                if(mTitle.getEditText().getText().toString().length()==0 ||  mArtist.getEditText().getText().toString().length()==0 )
+                {
+
+                    Toast.makeText(CreatePostActivity.this,"Please add title and Artist!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mPost.getEditText().getText().toString().length()==0)
+                {
+                    Toast.makeText(CreatePostActivity.this,"Your post is Empty!",Toast.LENGTH_SHORT).show();
+                    return;
+                }
+                if(mMusicuri==null || mImageuri==null)
                 {
                     Toast.makeText(CreatePostActivity.this,"Please add image and music!",Toast.LENGTH_SHORT).show();
+                    return;
                 }
 
                 //window if off

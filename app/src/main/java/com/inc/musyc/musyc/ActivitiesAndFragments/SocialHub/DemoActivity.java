@@ -1,6 +1,5 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub;
 
-import android.content.Context;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.google.firebase.database.DatabaseReference;
@@ -18,9 +16,6 @@ import com.google.firebase.database.Query;
 import com.inc.musyc.musyc.JsontoJava.Singleuser;
 import com.inc.musyc.musyc.R;
 import com.inc.musyc.musyc.Utils.UserViewHolder;
-import com.squareup.picasso.Picasso;
-
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /*
     Demo activity for debugging purpose

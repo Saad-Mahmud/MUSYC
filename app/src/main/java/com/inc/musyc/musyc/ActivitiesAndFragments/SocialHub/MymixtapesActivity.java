@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub;
 
 import android.content.Intent;
 
@@ -16,6 +16,9 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream.CreateMixtapeActivity;
+import com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream.MixtapelistenActivity;
+import com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream.SyncMainActivity;
 import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.JsontoJava.Mixtape;
 import com.inc.musyc.musyc.R;
@@ -46,13 +49,14 @@ public class MymixtapesActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mymixtapes);
-        if(getIntent().getStringExtra("isChoose").equals("true"))isChoose=true;
+        if(getIntent().getStringExtra("isChoose").toString().equals("true"))isChoose=true;
         else isChoose=false;
         //init
         mToolbar =(Toolbar)findViewById(R.id.mymixtapes_toolbar);
         mMixtapeList = (RecyclerView)findViewById(R.id.mymixtape_list);
         mAuth = FirebaseAuth.getInstance();
         mCurrent_user_id = getIntent().getStringExtra("uid").toString();
+        if(mCurrent_user_id==null)mCurrent_user_id=Infostatic.uid;
         mMixtapeDatabase = FirebaseDatabase.getInstance().getReference().child("mixtapes").child(mCurrent_user_id);
         mMixtapeDatabase.keepSynced(true);
         mAddbutton=(FloatingActionButton)findViewById(R.id.mymxtapesbt_add);
@@ -99,8 +103,10 @@ public class MymixtapesActivity extends AppCompatActivity {
             @Override
             protected void populateViewHolder(MixtapeViewHolder viewHolder, final Mixtape model, int position) {
 
-                viewHolder.setTitle(model.getTitle());
-                viewHolder.setDescription(model.getDescription());
+                if(model.getTitle()!=null)viewHolder.setTitle(model.getTitle());
+                else viewHolder.setTitle("Liked song");
+                if(model.getDescription()!=null)viewHolder.setDescription(model.getDescription());
+                else viewHolder.setDescription("Songs you might like.");
                 viewHolder.setImage(model.getImage(),MymixtapesActivity.this);
 
                 viewHolder.mView.setOnClickListener(new View.OnClickListener() {
@@ -109,7 +115,8 @@ public class MymixtapesActivity extends AppCompatActivity {
                         if(isChoose)
                         {
                             Map partyMap = new HashMap();
-                            partyMap.put("title", model.getTitle());
+                            if(model.getTitle()!=null)partyMap.put("title", model.getTitle());
+                            else partyMap.put("title", model.getTitle());
                             partyMap.put("image", model.getImage());
                             partyMap.put("id", model.getId());
                             SyncMainActivity.mTitle=model.getTitle();
@@ -130,9 +137,11 @@ public class MymixtapesActivity extends AppCompatActivity {
                             return;
                         }
                         Intent socialmain=new Intent(MymixtapesActivity.this,MixtapelistenActivity.class);
-                        socialmain.putExtra("title",model.getTitle());
+                       if(model.getTitle()!=null) socialmain.putExtra("title",model.getTitle());
+                        else socialmain.putExtra("title",model.getTitle());
                         socialmain.putExtra("image",model.getImage());
-                        socialmain.putExtra("id",model.getId());
+                        if(model.getId()!=null)socialmain.putExtra("id",model.getId());
+                        else socialmain.putExtra("id","liked_songs");
                         socialmain.putExtra("uid",mCurrent_user_id);
                         startActivity(socialmain);
                     }

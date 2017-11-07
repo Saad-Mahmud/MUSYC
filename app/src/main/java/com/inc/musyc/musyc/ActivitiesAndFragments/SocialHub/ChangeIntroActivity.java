@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub;
 
 import android.support.annotation.NonNull;
 import android.support.design.widget.TextInputLayout;

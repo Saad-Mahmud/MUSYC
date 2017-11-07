@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub;
 
 
 import android.content.Intent;
@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream.MixtapelistenActivity;
 import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.R;
 

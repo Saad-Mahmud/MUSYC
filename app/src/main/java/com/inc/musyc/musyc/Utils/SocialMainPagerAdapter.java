@@ -4,10 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.inc.musyc.musyc.ActivitiesAndFragments.FeedFragment;
-import com.inc.musyc.musyc.ActivitiesAndFragments.FollowFragment;
-import com.inc.musyc.musyc.ActivitiesAndFragments.NotificationFragment;
-import com.inc.musyc.musyc.ActivitiesAndFragments.SongsFragment;
+import com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub.FeedFragment;
+import com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub.FollowFragment;
+import com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub.NotificationFragment;
+import com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub.SongsFragment;
 
 /**
  * Created by saad on 10/1/17.

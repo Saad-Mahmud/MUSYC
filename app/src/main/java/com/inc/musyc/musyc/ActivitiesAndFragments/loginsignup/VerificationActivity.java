@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.loginsignup;
 
 import android.graphics.Typeface;
 import android.support.annotation.NonNull;
@@ -16,7 +16,6 @@ import android.widget.Toast;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
-import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.R;
 /*
     lets user verifi their accout

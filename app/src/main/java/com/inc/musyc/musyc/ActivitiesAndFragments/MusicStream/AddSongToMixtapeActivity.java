@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream;
 
 import android.content.Intent;
 import android.net.Uri;

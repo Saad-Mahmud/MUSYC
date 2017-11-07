@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub;
 
 
 import android.content.Intent;
@@ -16,6 +16,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream.SinglePostViewActivity;
 import com.inc.musyc.musyc.JsontoJava.Post;
 import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.R;

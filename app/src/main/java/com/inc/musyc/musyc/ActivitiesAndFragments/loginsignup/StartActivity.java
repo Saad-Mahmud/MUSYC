@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.loginsignup;
 
 import android.content.Intent;
 import android.graphics.Typeface;

@@ -25,13 +25,6 @@ public class MixtapeSongsViewHolder extends RecyclerView.ViewHolder{
         mTitle=(TextView)mView.findViewById(R.id.mixtapesongs_name);
         mTitle.setText(title);
     }
-    public void setNo(int no)
-    {
-        TextView mTitle;
-        no=no+1;
-        mTitle=(TextView)mView.findViewById(R.id.mixtapesongs_no);
-        mTitle.setText("  "+no+".  ");
-    }
     public void setColor()
     {
         TextView mTitle;

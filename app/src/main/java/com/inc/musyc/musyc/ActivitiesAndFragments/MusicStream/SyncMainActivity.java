@@ -1,4 +1,4 @@
-package com.inc.musyc.musyc.ActivitiesAndFragments;
+package com.inc.musyc.musyc.ActivitiesAndFragments.MusicStream;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.inc.musyc.musyc.ActivitiesAndFragments.SocialHub.MymixtapesActivity;
 import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.JsontoJava.Follow;
 import com.inc.musyc.musyc.R;
@@ -85,6 +86,7 @@ public class SyncMainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Intent choose = new Intent(SyncMainActivity.this, MymixtapesActivity.class);
                 choose.putExtra("isChoose","true");
+                choose.putExtra("uid",Infostatic.uid);
                 startActivity(choose);
             }
         });
