@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.R;
 
 
@@ -46,9 +47,10 @@ public class SongsFragment extends Fragment {
         mLiketitle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent MixtapeListane=new Intent(getContext(),SyncPlaylistActivity.class);
+                Intent MixtapeListane=new Intent(getContext(),MixtapelistenActivity.class);
                 MixtapeListane.putExtra("title","Liked Songs");
                 MixtapeListane.putExtra("id","liked_songs");
+                MixtapeListane.putExtra("uid", Infostatic.uid);
                 startActivity(MixtapeListane);
             }
         });

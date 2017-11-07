@@ -8,9 +8,9 @@
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.RECORD_AUDIO"/>
-    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
 
     <application xmlns:tools="http://schemas.android.com/tools"
         android:name=".Global.Persistence"
@@ -27,7 +27,9 @@
             </intent-filter>
         </service>
 
-        <activity android:name=".ActivitiesAndFragments.AppMainActivity">
+        <activity
+            android:name=".ActivitiesAndFragments.AppMainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -41,47 +43,118 @@
         </activity>
         <activity
             android:name=".ActivitiesAndFragments.StartActivity"
-            android:parentActivityName=".ActivitiesAndFragments.AppMainActivity" />
+            android:parentActivityName=".ActivitiesAndFragments.AppMainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActivitiesAndFragments.SignUpActivity"
-            android:parentActivityName=".ActivitiesAndFragments.StartActivity" />
+            android:parentActivityName=".ActivitiesAndFragments.StartActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActivitiesAndFragments.LogInActivity"
-            android:parentActivityName=".ActivitiesAndFragments.StartActivity" />
+            android:parentActivityName=".ActivitiesAndFragments.StartActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActivitiesAndFragments.SocialMainActivity"
-            android:parentActivityName=".ActivitiesAndFragments.AppMainActivity" />
+            android:parentActivityName=".ActivitiesAndFragments.AppMainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ActivitiesAndFragments.ForgotpassActivity"
-            android:parentActivityName=".ActivitiesAndFragments.LogInActivity" />
-        <activity android:name=".ActivitiesAndFragments.VerificationActivity" />
-        <activity android:name=".ActivitiesAndFragments.AccountSettingActivity" />
-        <activity android:name=".ActivitiesAndFragments.ChangeIntroActivity" />
-        <activity android:name=".ActivitiesAndFragments.ChangePassActivity" />
-        <activity android:name=".ActivitiesAndFragments.ChangeDesActivity" />
+            android:parentActivityName=".ActivitiesAndFragments.LogInActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.VerificationActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.AccountSettingActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.ChangeIntroActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.ChangePassActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.ChangeDesActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/Base.Theme.AppCompat" />
-        <activity android:name=".ActivitiesAndFragments.DemoActivity" />
-        <activity android:name=".ActivitiesAndFragments.ProfileActivity" />
-        <activity android:name=".Utils.DumbActivity" />
-        <activity android:name=".ActivitiesAndFragments.CreatePostActivity" />
-        <activity android:name=".ActivitiesAndFragments.SinglePostViewActivity" />
-        <activity android:name=".ActivitiesAndFragments.MymixtapesActivity" />
-        <activity android:name=".ActivitiesAndFragments.SyncPlaylistActivity" />
-        <activity android:name=".ActivitiesAndFragments.CreateMixtapeActivity" />
-        <activity android:name=".ActivitiesAndFragments.AddSongToMixtapeActivity" />
-        <activity android:name=".ActivitiesAndFragments.SyncKariokyMainActivity" />
-        <activity android:name=".ActivitiesAndFragments.SyncMainActivity" />
-        <activity android:name=".ActivitiesAndFragments.MixtapelistenActivity" />
-        <activity android:name=".ActivitiesAndFragments.SearchActivity"></activity>
-        <activity android:name=".OfflineMusicPlayer.PlayerHubActivity" android:launchMode="singleTop" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".OfflineMusicPlayer.PlaylistActivity" android:launchMode="singleTop" android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".OfflineMusicPlayer.ListOfPlaylistsActivity" android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".OfflineMusicPlayer.KaraokeHubActivity"/><activity android:name=".VideosViewer"/>
-        <activity android:name=".OfflineMusicPlayer.EachPlaylistActivity" android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".OfflineMusicPlayer.SearchActivity"/>
-        <activity android:name=".OfflineMusicPlayer.VideosLoaderActivity"/>
+        <activity
+            android:name=".ActivitiesAndFragments.DemoActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.ProfileActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Utils.DumbActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.CreatePostActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.SinglePostViewActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.MymixtapesActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.SyncPlaylistActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.CreateMixtapeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.AddSongToMixtapeActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.SyncKariokyMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.SyncMainActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.MixtapelistenActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OfflineMusicPlayer.PlayerHubActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".OfflineMusicPlayer.PlaylistActivity"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".OfflineMusicPlayer.ListOfPlaylistsActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".OfflineMusicPlayer.KaraokeHubActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".VideosViewer"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OfflineMusicPlayer.EachPlaylistActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" />
+        <activity
+            android:name=".OfflineMusicPlayer.SearchActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".OfflineMusicPlayer.VideosLoaderActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".ActivitiesAndFragments.MainSettings.MainSettingsActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ActivitiesAndFragments.MainSettings.SpecialThanksActivit" />
+        <activity android:name=".ActivitiesAndFragments.MainSettings.ContectUsActivity" />
+        <activity android:name=".ActivitiesAndFragments.MainSettings.AboutUsActivity"></activity>
     </application>
 
 </manifest>

@@ -119,7 +119,7 @@ public class LogInActivity extends AppCompatActivity {
 
     public void loginuser(String password , String email)
     {
-        Toast.makeText(LogInActivity.this,""+email+" "+password,Toast.LENGTH_SHORT).show();
+       // Toast.makeText(LogInActivity.this,""+email+" "+password,Toast.LENGTH_SHORT).show();
         mAuth.signInWithEmailAndPassword(email,password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
@@ -159,7 +159,7 @@ public class LogInActivity extends AppCompatActivity {
                                 Infostatic.img=dataSnapshot.child("image").getValue().toString();
                                 Infostatic.not=dataSnapshot.child("cnt").getValue().toString();
 
-                                Toast.makeText(LogInActivity.this, "Success!", Toast.LENGTH_LONG).show();
+                                //Toast.makeText(LogInActivity.this, "Success!", Toast.LENGTH_LONG).show();
                                 mProgressbar.setVisibility(View.GONE);
                                 getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
                                 Infostatic.islogedin = true;

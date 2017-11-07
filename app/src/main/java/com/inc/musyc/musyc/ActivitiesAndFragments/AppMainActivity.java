@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -19,6 +18,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.iid.FirebaseInstanceId;
+import com.inc.musyc.musyc.ActivitiesAndFragments.MainSettings.MainSettingsActivity;
 import com.inc.musyc.musyc.Global.Infostatic;
 import com.inc.musyc.musyc.OfflineMusicPlayer.PlaylistActivity;
 import com.inc.musyc.musyc.R;
@@ -104,13 +104,8 @@ public class AppMainActivity extends AppCompatActivity {
         mAppset.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Infostatic.islogedin=false;
-                mImage.setImageResource(R.drawable.default_avatar);
-                mName.setText("Offline");
-                mLogin.setText("Log In");
-                mLogin.setVisibility(View.VISIBLE);
-                mLogin.setClickable(true);
-                FirebaseAuth.getInstance().signOut();
+                Intent settings = new Intent(AppMainActivity.this, MainSettingsActivity.class);
+                startActivity(settings);
 
             }
         });
@@ -140,7 +135,7 @@ public class AppMainActivity extends AppCompatActivity {
                 else {
                     Intent Start = new Intent(AppMainActivity.this, StartActivity.class);
                     startActivity(Start);
-                    Toast.makeText(AppMainActivity.this, "", Toast.LENGTH_LONG).show();
+                    //Toast.makeText(AppMainActivity.this, "", Toast.LENGTH_LONG).show();
                 }
             }
         });
@@ -169,7 +164,7 @@ public class AppMainActivity extends AppCompatActivity {
                         Infostatic.img=dataSnapshot.child("image").getValue().toString();
                         Infostatic.not=dataSnapshot.child("cnt").getValue().toString();
                         FirebaseDatabase.getInstance().getReference().child("uidtoinfo").child(Infostatic.uid).child("token").setValue(Infostatic.token);
-                        Toast.makeText(AppMainActivity.this, "Success!", Toast.LENGTH_LONG).show();
+                        //Toast.makeText(AppMainActivity.this, "Success!", Toast.LENGTH_LONG).show();
                         Infostatic.islogedin=true;
                         //Infostatic.isfirst=false;
                         loadImage();
@@ -182,6 +177,8 @@ public class AppMainActivity extends AppCompatActivity {
                         mName.setText("Offline");
                         mLogin.setText("Log In");
                         windowOn();
+                        mLogin.setClickable(true);
+                        mImage.setImageResource(R.drawable.default_avatar);
                     }
                 }
 
@@ -198,6 +195,7 @@ public class AppMainActivity extends AppCompatActivity {
             mLogin.setText("Log In");
             windowOn();
             mLogin.setClickable(true);
+            mImage.setImageResource(R.drawable.default_avatar);
             FirebaseAuth.getInstance().signOut();
         }
     }

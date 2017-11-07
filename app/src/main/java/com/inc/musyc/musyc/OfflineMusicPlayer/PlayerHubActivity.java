@@ -77,7 +77,7 @@ public class PlayerHubActivity extends AppCompatActivity implements SeekBar.OnSe
         lastSongDB = new LastPlayedSongDatabase(contextOfThisActivity);
 
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("  Music Player");
+        getSupportActionBar().setTitle("");
         getSupportActionBar().setLogo(R.mipmap.ic_launcher_round);
 
 //        <ImageButton
