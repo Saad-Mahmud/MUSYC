@@ -84,13 +84,6 @@ public class PlaylistActivity extends Activity
             }
         }); //Opens custom playlists activity
 
-        Button suggestions = (Button) findViewById(R.id.suggest);
-        suggestions.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Toast.makeText(PlaylistActivity.this, "Suggestions not implemented yet", Toast.LENGTH_SHORT).show();
-            }
-        });
 
         searchBarButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -109,19 +102,21 @@ public class PlaylistActivity extends Activity
         });
 
 
+        listViewForPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
+                PlaybackManagerClass.songIndex = position;
+                PlaybackManagerClass.playSong(PlaybackManagerClass.songIndex);
+                PlaybackManagerClass.isPlaylist=false;
+            }
+        });
+
         if (!SongLoader.hasLoadedOnce)      //If songs haven't been loaded yet once, loads songs
         {
             SongLoader.getSongsList();
             playlistHasBeenLoadedOnce = true;
 
-            listViewForPlaylist.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                @Override
-                public void onItemClick(AdapterView<?> adapterView, View view, int position, long id) {
-                    PlaybackManagerClass.songIndex = position;
-                    PlaybackManagerClass.playSong(PlaybackManagerClass.songIndex);
-                    PlaybackManagerClass.isPlaylist=false;
-                }
-            });
+
 
 
         openListOfPlaylists.setOnClickListener(new View.OnClickListener() {
@@ -226,7 +221,7 @@ public class PlaylistActivity extends Activity
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        PlaybackManagerClass.pauseSong();
+        if(PlayerHubActivity.isFinished)PlaybackManagerClass.pauseSong();
         ending.performClick();
     }
 }

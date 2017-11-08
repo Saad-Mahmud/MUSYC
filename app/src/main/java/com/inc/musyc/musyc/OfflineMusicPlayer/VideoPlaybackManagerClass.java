@@ -13,4 +13,9 @@ public class VideoPlaybackManagerClass
     {
         KaraokeHubActivity.karaokeVideoView.pause();
     }   //Pauses video
+
+    static void stopVideo()
+    {
+        KaraokeHubActivity.karaokeVideoView.stopPlayback();
+    }
 }

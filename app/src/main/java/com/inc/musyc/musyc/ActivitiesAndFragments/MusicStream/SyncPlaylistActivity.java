@@ -85,6 +85,7 @@ public class SyncPlaylistActivity extends AppCompatActivity {
     private String mPartyhostid;
     private Long mTime;
     private Long estimatedServerTimeMs;
+    private boolean onpage=false;
 
 
     @Override
@@ -105,6 +106,7 @@ public class SyncPlaylistActivity extends AppCompatActivity {
         mMixtapesongsDatabase.keepSynced(true);
         mSongulrs=new String[1111];
         estimatedServerTimeMs=(long)0;
+        onpage=true;
         //UI build
         mMixtapesongsList.setHasFixedSize(true);
         mMixtapesongsList.setLayoutManager(new LinearLayoutManager(SyncPlaylistActivity.this));
@@ -335,7 +337,7 @@ public class SyncPlaylistActivity extends AppCompatActivity {
                                 +" max: "+stringForTime((int)exoPlayer.getDuration()));
 
                         try {
-                            if(waitfor())setProgress();
+                            if(onpage && waitfor())setProgress();
                         } catch (InterruptedException e) {
                             e.printStackTrace();
                         }
@@ -580,6 +582,7 @@ public class SyncPlaylistActivity extends AppCompatActivity {
     @Override
     protected void onResume() {
         super.onResume();
+        onpage=true;
         if(audioWidget==null)return;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
@@ -595,11 +598,13 @@ public class SyncPlaylistActivity extends AppCompatActivity {
     @Override
     protected void onStop() {
         if(exoPlayer!=null)exoPlayer.stop();
+        onpage=false;
         super.onStop();
     }
 
     @Override
     protected void onStart() {
+        onpage=true;
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
             Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION, Uri.parse("package:" + getPackageName()));
             startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
@@ -664,6 +669,7 @@ public class SyncPlaylistActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         if(exoPlayer!=null)exoPlayer.stop();
+        onpage=false;
         if(audioWidget!=null)audioWidget.hide();
         super.onDestroy();
     }

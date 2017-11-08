@@ -75,7 +75,7 @@
                 android:layout_height="wrap_content"
                 android:textColor="@color/White_Color"
                 android:textSize="36sp"
-                android:text="KARIOKY"
+                android:text="KARAOKE"
                 android:layout_centerInParent="true"/>
 
         </RelativeLayout>

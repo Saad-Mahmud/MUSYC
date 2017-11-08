@@ -65,20 +65,27 @@ public class KaraokeHubActivity extends AppCompatActivity
             @Override
             public void onClick(View view)
             {
-                if(!hasVideoStarted)
+                try
                 {
-                    videoPreview.setVisibility(View.INVISIBLE);     //sets thumbnail invisible and starts video
-                    VideoPlaybackManagerClass.playVideo(videoPath); //starts video using the video path provided by videoPlayer class
-                    hasVideoStarted=true;                           //notifies the start of the video
-                    recordingName = videoName +" "+ new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
-                                                                    //Appends video name and current date-time to use as the name for
-                                                                    //the recording being saved.
-                    VoiceRecorderManagerClass.startRecording(recordingName);
-                                                                    //Starts recording audio.
+                    if(!hasVideoStarted)
+                    {
+                        Toast.makeText(KaraokeHubActivity.this,"asd",Toast.LENGTH_SHORT).show();
+                        videoPreview.setVisibility(View.INVISIBLE);     //sets thumbnail invisible and starts video
+                        VideoPlaybackManagerClass.playVideo(videoPath); //starts video using the video path provided by videoPlayer class
+                        hasVideoStarted=true;                           //notifies the start of the video
+                        recordingName = videoName +" "+ new SimpleDateFormat("yyyy.MM.dd.HH.mm.ss").format(new Date());
+                        //Appends video name and current date-time to use as the name for
+                        //the recording being saved.
+                        VoiceRecorderManagerClass.startRecording(recordingName);
+                        //Starts recording audio.
+                    }
+                    else
+                    {
+                        stopRecordingButton.performClick();             //Stops recording video if the video is tapped on mid-recording
+                    }
                 }
-                else
-                {
-                    stopRecordingButton.performClick();             //Stops recording video if the video is tapped on mid-recording
+                catch(Exception e){
+                    Toast.makeText(KaraokeHubActivity.this, "Please try again later", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -94,7 +101,7 @@ public class KaraokeHubActivity extends AppCompatActivity
                     startRecordingButton.setImageResource(R.drawable.record);
                     videoPreview.setVisibility(View.VISIBLE);
                     VoiceRecorderManagerClass.stopRecording();  //Prepares for recording again
-                    PlaybackManagerClass.playRecordedSong(VoiceRecorderManagerClass.provideRecordingPath());
+//                    PlaybackManagerClass.playRecordedSong(VoiceRecorderManagerClass.provideRecordingPath());
                                                                 //Plays the recorded audio
                     Toast.makeText(KaraokeHubActivity.this, "Recording saved as "+recordingName, Toast.LENGTH_LONG).show();
                 }
@@ -110,4 +117,31 @@ public class KaraokeHubActivity extends AppCompatActivity
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+            super.onDestroy();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(hasVideoStarted)
+        {
+            stopRecordingButton.performClick();
+        }
+        else super.onBackPressed();
+
+    }
+
 }

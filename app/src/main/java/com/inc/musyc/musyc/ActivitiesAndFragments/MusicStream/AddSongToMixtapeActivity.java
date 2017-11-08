@@ -72,7 +72,7 @@ public class AddSongToMixtapeActivity extends AppCompatActivity {
     {
         //init toolbar
         setSupportActionBar(mToolbar);
-        getSupportActionBar().setTitle("  Add EachSongFormat From Mobile");
+        getSupportActionBar().setTitle(" Add Song From Mobile");
         getSupportActionBar().setLogo(R.mipmap.ic_launcher_round);
 
         //Choose music from mobile

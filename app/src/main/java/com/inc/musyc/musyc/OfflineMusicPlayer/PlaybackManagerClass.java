@@ -94,8 +94,8 @@ public class PlaybackManagerClass extends Activity implements MediaPlayer.OnComp
 
             hasPlaybackStarted =true;
 
-            Toast.makeText(PlayerHubActivity.contextOfThisActivity, "Playing "+ songTitle, Toast.LENGTH_SHORT);
-            Toast.makeText(PlaylistActivity.contextOfThisActivity, "Playing "+ songTitle, Toast.LENGTH_SHORT);
+            Toast.makeText(PlayerHubActivity.contextOfThisActivity, "Playing "+ songTitle, Toast.LENGTH_SHORT).show();
+            Toast.makeText(PlaylistActivity.contextOfThisActivity, "Playing "+ songTitle, Toast.LENGTH_SHORT).show();
 
             if(!hasPlaybackStarted) NotificationManager.startNotification(songTitle);   //Sends notification manager the current song name
             else                                                                        //Notification manager then updates/sends the notification

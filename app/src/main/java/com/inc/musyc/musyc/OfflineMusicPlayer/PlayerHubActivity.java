@@ -343,10 +343,11 @@ public class PlayerHubActivity extends AppCompatActivity implements SeekBar.OnSe
         PlaybackManagerClass.seeking();
     }
 
-
+    static boolean isFinished=false;
     @Override
     protected void onDestroy() {
         PlaylistActivity.finishing();
+        isFinished=true;
         super.onDestroy();
         PlaybackManagerClass.stopSong();
         NotificationManager.notifMan = (android.app.NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);   //Gets system notification service

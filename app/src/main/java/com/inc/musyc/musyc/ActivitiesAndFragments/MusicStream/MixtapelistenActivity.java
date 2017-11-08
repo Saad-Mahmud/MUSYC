@@ -580,6 +580,7 @@ public class MixtapelistenActivity extends AppCompatActivity {
         {
             Intent AddSongOffLine=new Intent(MixtapelistenActivity.this,AddSongToMixtapeActivity.class);
             AddSongOffLine.putExtra("mMixtapeid",mMixtapeid);
+            audioWidget.hide();
             startActivity(AddSongOffLine);
         }
         return true;

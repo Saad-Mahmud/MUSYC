@@ -11,7 +11,7 @@
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Contect Musyc"
+        android:text="Contact Musyc"
         android:textColor="@color/colorAccent"
         android:textSize="48sp"
         android:textAlignment="center"

@@ -46,7 +46,7 @@ public class VideosLoaderActivity extends AppCompatActivity
             {
                 KaraokeHubActivity.videoPath=videosList.get(position).getPath();    //Sets current video path
                 KaraokeHubActivity.videoName=videosList.get(position).getTitle();   //Sets current video title
-                videoIndex=position;                                        //Sets current video index
+                //videoIndex=position;                                        //Sets current video index
                 Intent intent = new Intent(VideosLoaderActivity.this, KaraokeHubActivity.class);
                 startActivity(intent);
             }

@@ -5,7 +5,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg3"
+    android:background="@color/Background_Color"
     tools:context="com.example.monoshizjishnu.dbtester.PlaylistLists">
 
 
@@ -80,7 +80,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@android:color/transparent"
-        android:text="Feed"
+        android:text=""
         android:textSize="15sp"
         android:textColor="@android:color/white"
         android:layout_below="@+id/search"
@@ -100,7 +100,6 @@
         android:layout_toRightOf="@+id/feed"
         android:layout_alignParentRight="true"
         />
-
     <Button
         android:id="@+id/all"
         android:focusable="false"
@@ -111,37 +110,22 @@
         android:textColor="@android:color/white"
         android:text="All"
         android:textSize="15sp"
-        android:layout_toLeftOf="@+id/customplaylist"
-        android:layout_alignParentLeft="true"
         android:drawableBottom="#5393BF"
+        android:layout_marginLeft="80dp"
         />
 
     <Button
         android:id="@+id/customplaylist"
         android:focusable="false"
-        android:layout_width="140dp"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/feed"
         android:background="#333333"
         android:textColor="@android:color/white"
         android:text="Playlists"
         android:textSize="15sp"
-        android:layout_centerHorizontal="true"
-        android:drawableBottom="#5393BF"
-        />
-
-    <Button
-        android:id="@+id/suggest"
-        android:focusable="false"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/feed"
-        android:background="@android:color/transparent"
-        android:textColor="@android:color/white"
-        android:text="Suggested"
-        android:textSize="15sp"
-        android:layout_toRightOf="@+id/customplaylist"
         android:layout_alignParentRight="true"
+        android:layout_marginRight="90dp"
         android:drawableBottom="#5393BF"
         />
 
@@ -150,7 +134,7 @@
         android:layout_height="60dp"
         android:background="@android:color/transparent"
         android:textColor="@android:color/white"
-        android:layout_below="@+id/suggest"
+        android:layout_below="@+id/all"
         android:text="Create New Playlist"
         android:textSize="15dp"
         android:layout_alignParentLeft="true"

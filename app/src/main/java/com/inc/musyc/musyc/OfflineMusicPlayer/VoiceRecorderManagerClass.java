@@ -14,7 +14,7 @@ public class VoiceRecorderManagerClass
     static String recordingPath="";
     static void startRecording(String fileName)
     {
-
+        mediaRecorder.reset();
         mediaRecorder.setAudioSource(MediaRecorder.AudioSource.MIC);    //Sets recording source
         mediaRecorder.setOutputFormat(MediaRecorder.OutputFormat.THREE_GPP);    //Sets recording output format
         mediaRecorder.setAudioEncoder(MediaRecorder.AudioEncoder.AMR_NB);       //Sets recording encoder
